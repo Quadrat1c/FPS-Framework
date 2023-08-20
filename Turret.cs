@@ -21,6 +21,10 @@ namespace FPSFramework
         private void Start()
         {
             Invoke(nameof(GiveGreenLight), Random.Range(1, 10));
+
+            // cache target reference on start
+            if (target == null)
+                target = FindObjectOfType<CharacterController>()?.gameObject;
         }
 
         private void GiveGreenLight()
@@ -32,7 +36,6 @@ namespace FPSFramework
         void Update()
         {
             if (!greenLight) return;
-            if (target == null && FindObjectOfType<CharacterController>()) target = FindObjectOfType<CharacterController>().gameObject;
 
             if (target != null)
             {
@@ -63,6 +66,9 @@ namespace FPSFramework
                         }
                     }
                 }
+            } else {
+                if (target == null)
+                    target = FindObjectOfType<CharacterController>()?.gameObject;
             }
         }
 
